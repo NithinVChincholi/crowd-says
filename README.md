@@ -1,5 +1,9 @@
 # Crowd Says
 
+**Play online: [crowd-says-2kl9.onrender.com](https://crowd-says-2kl9.onrender.com)**
+
+Hosted on Render Free. The first request after inactivity may take a minute or more. Rooms are temporary and reset when the instance sleeps, restarts, or redeploys. Invite friends from the lobby before starting.
+
 A text-based survey guessing party game for **one person against bots**, **individual multiplayer**, or **two competing teams**. Guess the popular answers, reveal the board, and race for the highest score.
 
 Built with Node.js and plain browser JavaScript. No external packages, paid APIs, or API keys are required.
@@ -30,7 +34,7 @@ Install Node.js 20 or newer, then run `npm start`. Open http://localhost:3000. C
 
 ## Deploy
 
-`render.yaml` is a ready-to-import Render Blueprint using the Dockerfile and `/health` check. Push this project to your own Git repository, connect that repository in a Render account, and create a Blueprint from it. Review the free plan and provider terms before deploying. Once Render reports a successful deploy, verify its assigned HTTPS URL in two independent browser sessions before sharing it. No public URL has been provisioned by this project yet. Free hosting restarts or idle shutdowns can clear in-memory rooms.
+The live service was deployed from the public GitHub repository using the Dockerfile, `main`, the Free compute plan, and `/health`. `render.yaml` is also available for a new Blueprint deployment. To host your own copy, push this project to your Git repository, connect it in a Render account, and create a Blueprint from it. Review the plan and provider terms before deploying. Free hosting restarts or idle shutdowns can clear in-memory rooms.
 
 The game has an **Invite a friend** control. On a public host it shows a link using that host's actual origin and `?room=CODE`, which prefills the join form without including a session token. In the localhost preview it explains that public hosting is required instead of presenting a local address as shareable. Friends must join before the game starts.
 
@@ -48,6 +52,8 @@ The server alone stores hidden boards, checks guesses, handles timers, and grant
 npm test
 # With a local server already running on port 3000:
 npm run verify:preview
+# Or check a deployed service (creates disposable test rooms):
+node scripts/verify-preview.cjs https://crowd-says-2kl9.onrender.com
 ```
 
 Tests cover complete matches in both modes, hidden-board privacy, host permissions, attempt limits, duplicate claims, bot pacing and vocabulary, expired-session recovery, and invite-link origins. The preview check creates disposable rooms and verifies live streams, bot guesses, independent guest sessions, and reconnects. GitHub Actions runs the test suite on Node 20 and 22.

@@ -1,14 +1,14 @@
 // Run against an already-running preview: node scripts/verify-preview.cjs
 const assert=require('node:assert/strict');
-const base='http://127.0.0.1:3000';
+const base=process.argv[2]||'http://127.0.0.1:3000';
 async function main(){
  const page=await fetch(base).then(r=>r.text());assert.match(page,/Crowd Says/);
  const client=await fetch(base+'/client.js').then(r=>r.text());assert.match(client,/checkSession/);assert.match(client,/'Ram','Rome','Bat','Alexa'/);
  assert.equal((await fetch(base+'/events?code=MISSING&token=invalid')).status,401);
  let session;
- async function action(action){const r=await fetch(base+'/api',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...session,action,name:'Connection check',mode:'solo'})});assert.equal(r.status,200);return r.json();}
+ async function action(action){const r=await fetch(base+'/api',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...session,action,name:'Connection check',mode:process.argv[3]||'solo'})});assert.equal(r.status,200);return r.json();}
  session=await action('create');
- const joinResponse=await fetch(base+'/api',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'join',code:session.code,name:'Independent guest'})});
+ const joinResponse=await fetch(base+'/api',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'join',code:session.code,name:'Independent guest',team:1})});
  assert.equal(joinResponse.status,200);const guest=await joinResponse.json();assert.notEqual(guest.token,session.token);
  const guestStream=await fetch(base+`/events?code=${guest.code}&token=${guest.token}`);assert.equal(guestStream.status,200);await guestStream.body.cancel();
  await action('addBot');await action('start');
@@ -24,3 +24,4 @@ async function main(){
  }finally{clearTimeout(timeout);controller.abort();}
 }
 main().catch(e=>{console.error(e);process.exitCode=1;});
+
