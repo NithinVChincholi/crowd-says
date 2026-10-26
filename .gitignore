@@ -1,0 +1,15 @@
+node_modules/
+.env
+.env.*
+!.env.example
+*.log
+coverage/
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.pem
+*.key
+*.p12
+*.pfx
+.openai/

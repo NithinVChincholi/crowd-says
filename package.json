@@ -1,0 +1,1 @@
+{"name":"crowd-says","version":"1.0.0","private":true,"description":"A text-based multiplayer party game with solo bot practice, individual competition, and team play","scripts":{"start":"node server.js","test":"node --test","verify:preview":"node scripts/verify-preview.cjs"},"engines":{"node":">=20"}}
