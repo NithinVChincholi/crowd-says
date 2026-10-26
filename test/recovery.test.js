@@ -25,4 +25,3 @@ test('valid sessions are preserved and bot display names are distinct and labele
  assert.equal(vm.runInContext("displayName('Practice Bot 2')",context),'Rome Bot');
  assert.equal(vm.runInContext("roomInvite('ABC123')",context),'https://example.test/?room=ABC123');
 });
-

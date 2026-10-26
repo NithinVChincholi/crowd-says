@@ -81,5 +81,3 @@ const server=http.createServer(async(req,res)=>{
 const cleanup=setInterval(()=>{for(const [code,r]of rooms)if(Date.now()-r.created>12*60*60*1000){clearTimeout(r.timer);for(const clients of r.clients.values())for(const res of clients)res.end();rooms.delete(code);}},60000);cleanup.unref();
 if(require.main===module)server.listen(process.env.PORT||3000,'0.0.0.0',()=>console.log(`Crowd Says running on port ${process.env.PORT||3000}`));
 module.exports={server,action,rooms,snapshot,normalize,botPlan};
-
-

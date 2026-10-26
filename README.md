@@ -65,5 +65,3 @@ Tests cover complete matches in both modes, hidden-board privacy, host permissio
 ## Current limits
 
 This first version uses in-memory rooms, not durable storage. Restarting or redeploying clears them; expired saved sessions return to the home screen with a recovery message. A temporary connection interruption preserves your room identity and retries. Host handoff, player removal, accounts, contact lists, and automatic friend notifications are not implemented. Invite links make joining easier but still need to be shared. This version has not been load-tested for a large simultaneous launch.
-
-

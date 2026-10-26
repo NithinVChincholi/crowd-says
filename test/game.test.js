@@ -69,4 +69,3 @@ test('bots join both modes, obey host controls and submit paced guesses',async()
   action({...host,action:'reveal'});
  }
 });
-

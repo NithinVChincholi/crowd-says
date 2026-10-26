@@ -56,6 +56,3 @@ function render(){const s=state,me=s.players.find(p=>p.id===s.you),host=s.hostId
  if(top){const inviteButton=document.createElement('button');inviteButton.className='secondary';inviteButton.textContent='Invite a friend ↗';inviteButton.onclick=showInvite;top.appendChild(inviteButton);const panel=document.createElement('div');panel.id='invite';panel.className='panel';panel.hidden=true;top.after(panel);}
  tick();}
 function tick(){if($('#timer'))$('#timer').textContent=state.endsAt?Math.max(0,Math.ceil((state.endsAt-Date.now())/1000))+'s':'REVEALED';}setInterval(tick,250);if(session)connect();
-
-
-
